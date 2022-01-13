@@ -7,8 +7,7 @@ class MyComponent extends React.Component {
    
     //key:value,state => object
     state = {
-        firstName:'',
-        lastName:'',
+        
         arrJobs:[
             { id:'id1',title:'developer',salary:'500$' },
             { id:'id2', title:'tester', salary:'400$' },
@@ -16,18 +15,37 @@ class MyComponent extends React.Component {
         ]
     }
 
+    addNewJob = (job) => {
+        console.log('check job', job)
+        // let currentJobs = this.state.arrJobs;
+        // currentJobs.push(job)
+        this.setState({
+            arrJobs: [...this.state.arrJobs, job]
+            //arrJobs: currentJobs
+        })
+    }
+
+    deleteJob = (job) => {
+        let currentJobs = this.state.arrJobs;
+        currentJobs = currentJobs.filter(item => item.id !== job.id)
+        this.setState({
+            arrJobs:currentJobs
+        })
+    }
+
+
 
     render() {
         
         return (
             <>
                 <div>
-                    <AddComponent />
+                    <AddComponent 
+                        addNewJob = { this.addNewJob }
+                    />
                     <ChildComponent  
-                        name={'child one'}
-                        age = {'25'}
-                        adress ={'vinh phuc'}
                         arrJobs = { this.state.arrJobs }
+                        deleteJob = {this.deleteJob}
                     />
                     
                 </div>
